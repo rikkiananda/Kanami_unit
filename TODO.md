@@ -1,4 +1,2 @@
-- [x] Lower the logo by adjusting transform in style.css
-- [ ] Add "Join Discord" button to header top right in index.html
-- [ ] Adjust matrix overlay opacity to 40% in style.css
-- [ ] Test the changes
+- [x] Edit style.css to replace yellow colors with #C5172E
+- [ ] Edit main.js to change matrix fillStyle to red rgba

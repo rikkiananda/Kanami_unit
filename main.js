@@ -18,7 +18,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.font = fontSize + "px monospace";
-    ctx.fillStyle = "rgba(255, 217, 61, 0.5)"; // #FFD93D dengan opacity 30%
+    ctx.fillStyle = "rgba(197,23,46,0.5)"; // #C5172E dengan opacity 30%
 
     for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
