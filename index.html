@@ -1,44 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanami Unit - Community Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <!-- BACKGROUND LAYERS -->
+    <div class="bg-gradient"></div>
+    <div class="particles-container">
+        <canvas id="particle-canvas"></canvas>
+    </div>
 
-    <!-- MATRIX BACKGROUND -->
-    <canvas id="matrix-canvas"></canvas>
+    <!-- GRAPH EDITOR DECORATION -->
+    <svg class="graph-decoration" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <!-- Main red flow -->
+        <path class="bezier-curve" d="M-100,500 C200,500 400,300 720,300 C1040,300 1240,500 1540,500" />
+        <!-- Secondary dashed line -->
+        <path class="bezier-curve-2" d="M-100,600 C300,600 500,400 720,450 C940,500 1140,200 1540,200" />
+        <!-- Extra technical lines -->
+        <path class="bezier-curve-2" d="M0,800 L1440,800" style="opacity:0.2" />
+        <line x1="720" y1="0" x2="720" y2="800" stroke="var(--accent-red)" stroke-width="1" stroke-dasharray="5,15"
+            opacity="0.3" />
+    </svg>
 
-    <!-- HEADER -->
-    <header>
-        <a href="https://drive.google.com/drive/folders/1oF6QYlm8FJeaGOvsfVgaroz0N3PO4zdB"
-           class="btn top-left">Access Assets</a>
-        <a href="https://discord.gg/2trhwjkqen"
-           class="btn top-right">Join Discord</a>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <div class="container">
-        <img src="asset/logo-kanami.png" class="logo">
-        <h1>Kanami Unit</h1>
-        <p>Berbicara, Bertanya, dan tertawa Bersama kanami unit</p>
-
-        <div class="structure">
-            <h2>Community Structure</h2>
-            <div class="structure-grid">
-                <div class="member founder">Rikki - founder</div>
-                <div class="member">QodryMv - staff</div>
-                <div class="member">Bryan - staff</div>
-                <div class="member">Rei - staff</div>
-                <div class="member">Aldi - staff</div>
-                <div class="member">Zen - helper</div>
-                <div class="member">Haidar - helper</div>
-            </div>
+    <!-- OVERLAY UI (Technical Layer) -->
+    <div class="overlay-ui">
+        <div class="safe-area-lines">
+            <div class="corner-mark tl"></div>
+            <div class="corner-mark tr"></div>
+            <div class="corner-mark bl"></div>
+            <div class="corner-mark br"></div>
         </div>
+
+        <div class="rec-indicator">
+            <div class="rec-dot"></div> REC [00:04:20:12]
+        </div>
+
+        <div class="param-overlay">
+            POS: [960, 540, 0]<br>
+            SCL: 100.0%<br>
+            ROT: 0.0°
+        </div>
+
+        <div class="timeline-scrubber">
+            <span>00:00</span>
+            <div class="scrubber-ticks"></div>
+            <span>TYPE: COMPOSITION</span>
+        </div>
+    </div>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="main-wrapper">
+
+        <!-- HEADER (Split Layout) -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <a href="https://drive.google.com/drive/folders/1oF6QYlm8FJeaGOvsfVgaroz0N3PO4zdB" class="btn-glass">
+                    <span class="icon">📁</span> Access Assets
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="https://discord.gg/2trhwjkqen" class="btn-glass discord">
+                    <span class="icon">Example</span> Join Discord
+                </a>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="logo-container">
+                    <div class="glow-effect"></div>
+                    <img src="asset/logo-kanami.png" alt="Kanami Unit" class="hero-logo">
+                </div>
+                <h1 class="hero-title">Kanami Unit</h1>
+                <p class="hero-subtitle">Berbicara, Bertanya, dan tertawa Bersama kanami unit</p>
+            </div>
+
+            <!-- MOUNTAIN SILHOUETTE -->
+            <div class="mountain-silhouette"></div>
+        </section>
+
+        <!-- EDITOR SHOWCASE WIDGET -->
+        <section class="showcase-section">
+            <div class="editor-panel">
+                <!-- Panel Glow -->
+                <div class="panel-glow-underlay"></div>
+
+                <!-- Time Markers -->
+                <div class="panel-header-time">
+                    <span>00:00</span>
+                    <span>00:05</span>
+                    <span>00:10</span>
+                    <span>00:15</span>
+                </div>
+
+                <!-- Tracks -->
+                <div class="track-container">
+                    <div class="track-row">
+                        <!-- Playhead Line -->
+                        <div class="widget-playhead"></div>
+
+                        <div class="clip c-blue" style="left: 10%; width: 25%;">
+                            <span class="clip-name">Intro.mp4</span>
+                        </div>
+                        <div class="clip c-cyan" style="left: 38%; width: 35%;">
+                            <span class="clip-name">Main.mp4</span>
+                        </div>
+                        <div class="clip c-blue" style="left: 76%; width: 20%;">
+                            <span class="clip-name">Outro.mp4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph Area -->
+                <div class="graph-area">
+                    <svg class="widget-graph" viewBox="0 0 400 100" preserveAspectRatio="none">
+                        <!-- Grid -->
+                        <defs>
+                            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)"
+                                    stroke-width="1" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#smallGrid)" />
+
+                        <!-- Curve -->
+                        <path d="M 20,80 C 100,80 120,20 200,20 C 280,20 300,70 380,60" fill="none" stroke="#00ccff"
+                            stroke-width="3" stroke-linecap="round" filter="drop-shadow(0 0 5px #00ccff)" />
+
+                        <!-- Points -->
+                        <circle cx="20" cy="80" r="4" fill="#00ccff" />
+                        <circle cx="200" cy="20" r="4" fill="#00ccff" />
+                        <circle cx="380" cy="60" r="4" fill="#00ccff" />
+                    </svg>
+                </div>
+
+                <!-- Footer Keys -->
+                <div class="panel-footer-keys">
+                    <div class="keyframe"></div>
+                    <div class="keyframe"></div>
+                    <div class="keyframe"></div>
+                    <div class="keyframe"></div>
+                    <div class="keyframe"></div>
+                    <div class="keyframe"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNITY STRUCTURE SECTION -->
+        <section class="community-section">
+            <h2 class="section-title">Community Structure</h2>
+
+            <div class="staff-grid">
+                <!-- ROW 1 -->
+                <div class="card founder-card">
+                    <div class="card-glow"></div>
+                    <div class="role-badge">Founder</div>
+                    <h3>Rikki</h3>
+                    <div class="audio-wave"><span></span><span></span><span></span><span></span></div>
+                </div>
+
+                <div class="card staff-card">
+                    <div class="role-badge">Staff</div>
+                    <h3>QodryMv</h3>
+                </div>
+
+                <div class="card staff-card">
+                    <div class="role-badge">Staff</div>
+                    <h3>Bryan</h3>
+                </div>
+
+                <!-- ROW 2 -->
+                <div class="card staff-card">
+                    <div class="role-badge">Staff</div>
+                    <h3>Rei</h3>
+                </div>
+
+                <div class="card staff-card">
+                    <div class="role-badge">Staff</div>
+                    <h3>Aldi</h3>
+                </div>
+
+                <div class="card helper-card">
+                    <div class="role-badge">Helper</div>
+                    <h3>Zen</h3>
+                </div>
+
+                <div class="card helper-card">
+                    <div class="role-badge">Helper</div>
+                    <h3>Haidar</h3>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Kanami Unit. All rights reserved.</p>
+        </footer>
     </div>
 
     <script src="main.js"></script>
 </body>
+
 </html>
