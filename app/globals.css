@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-editor-bg: #0d0010;
+  --color-editor-panel-bg: #1a0030;
+  --color-editor-border: #3d1b5c;
+  --color-editor-accent: #9b30ff;
+  --color-editor-accent-light: #c084fc;
+  --color-editor-text: #e0d4f5;
+  --color-editor-text-muted: #8b75a3;
+  --color-editor-highlight: rgba(255, 255, 255, 0.1);
+  --color-editor-timeline: #150026;
+  --color-editor-playhead: #ff3366;
+
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-sans: var(--font-inter), sans-serif;
+
+  --animate-flicker: flicker 0.15s infinite;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-glitch: glitch 2s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes flicker {
+    0% {
+      opacity: 0.95;
+    }
+
+    50% {
+      opacity: 0.85;
+    }
+
+    100% {
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  @keyframes glitch {
+
+    0%,
+    100% {
+      transform: translate(0);
+    }
+
+    2% {
+      transform: translate(-2px, 1px);
+    }
+
+    4% {
+      transform: translate(2px, -1px);
+    }
+
+    6% {
+      transform: translate(0);
+    }
+  }
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-editor-bg);
+  color: var(--color-editor-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* CRT overlay effect */
+body::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 50;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
